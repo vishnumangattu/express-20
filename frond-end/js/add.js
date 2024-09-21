@@ -44,10 +44,7 @@ function validatePhone(phone){
          document.getElementById("phone").style.borderColor="green"
     }
     else{
-        document.getElementById("sphone").textContent="Phone Number Is Invalid"
         document.getElementById("phone").style.borderColor="red"
-        document.getElementById("sphone").style.color="red"
-        document.getElementById("sphone").style.fontSize=13+"px"
     }
 }
 function validateAge(age){

@@ -1,8 +1,7 @@
 async function getData(){
-    let res=await fetch("http://localhost:3000/api/getdonor");
+    let res=await fetch("http://localhost:3000/api/getdonors");
     if(res.status==200){
         const donors=await res.json();
-        
     str=``;
     donors.map((donor)=>{
         str+=`
@@ -13,8 +12,8 @@ async function getData(){
                         <td>${donor.phone}</td>
                         <td>${donor.bgroup}</td>
                         <td>${donor.place}</td>
-                        <td> <a href="./pages/editDoner.html"><button class="edit-btn" >EDIT</button></a>
-                            <button class="delete-btn" >DELETE</button></td>
+                        <td> <a href="./pages/editDoner.html?id=${donor._id}"><button class="edit-btn" >EDIT</button></a>
+                            <button class="delete-btn" onclick="deleteDonor('${donor._id}')">DELETE</button></td>
                     </tr>`
         
     })
@@ -26,20 +25,28 @@ getData()
 
 
 
-// async function handleDelete(id){
+async function deleteDonor(id){
+    console.log(id);
     
+    const res=await fetch(`http://localhost:3000/api/deletedonor/${id}`,{
+        method:"DELETE",
+        headers:{"Content-Type":"application/json"}
+    }).then((res)=>{
+        console.log(res);
+        if(res.status==201){
+            alert("Deleted successfully")
+            window.location.href="../index.html"
+        }
+        else{
+            alert("Error")
+            window.location.href="../index.html"
+        }
+        
+    }).catch((error)=>{
+        console.log(error);
+        
+    })
 
-//     const res=await fetch("http://localhost:3000/delete",{
-//         method:"delete",
-//         headers:{"Content-Type":"text/plain"},
-//         body:id
-//     })
-
-//     const data=await res.text();
-//     res.status==200?alert(data):alert(data);
-//     getData();
-   
-// }
-
+}
 
 
